@@ -44,14 +44,14 @@ class ImageButton<I> extends StatelessWidget {
             children: [
               new ListTile(
                   leading: new Icon(Icons.camera_alt),
-                  title: new Text("Take a Picture"),
+                  title: new Text("相册"),
                   onTap: () {
                     getImage(ImageSource.camera);
                     Navigator.pop(context);
                   }),
               new ListTile(
                   leading: new Icon(Icons.photo_library),
-                  title: new Text("Camera Roll"),
+                  title: new Text("相机"),
                   onTap: () {
                     getImage(ImageSource.gallery);
                     Navigator.pop(context);
