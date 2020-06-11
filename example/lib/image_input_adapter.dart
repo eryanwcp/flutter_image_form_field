@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class ImageInputAdapter {
@@ -24,7 +25,7 @@ class ImageInputAdapter {
   /// Render the image from a file or from a remote source.
   Widget widgetize() {
     if (file != null) {
-      return Image.file(file.image);
+      return Image.file(new File(file.image.path));
     } else {
       return FadeInImage(
         image: NetworkImage(url),
@@ -65,7 +66,7 @@ class UploadableImage {
   );
 
   /// Input file
-  final File image;
+  final PickedFile image;
   /// FirebaseStorage folder name
   final String storagePath;
 
@@ -74,15 +75,11 @@ class UploadableImage {
   Future<UploadResponse> save() async {
     final uuid = new Uuid().v1();
     final _refPath = "$storagePath/$uuid.jpg";
-    StorageReference ref = FirebaseStorage.instance.ref().child(_refPath);
-    StorageUploadTask uploadTask = ref.putFile(image);
-    final _uploaded = await uploadTask.future;
-    final _bucketName = await ref.getBucket();
 
     return UploadResponse(
       refPath: _refPath,
-      originalUrl: _uploaded.downloadUrl.toString(),
-      bucketName: _bucketName
+      originalUrl: "downloadUrl",
+      bucketName: ""
     );
   }
 }

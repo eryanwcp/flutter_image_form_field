@@ -8,6 +8,7 @@ dependencies:
   cloud_firestore: ^0.8.0
   firebase_storage: ^1.0.2
   uuid: ^1.0.1
+  image_picker: ^0.6.6
   image_form_field:
     path: ../
 
