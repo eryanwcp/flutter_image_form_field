@@ -71,6 +71,7 @@ class _ImagesPreviewState<T> extends State<ImagesPreview> {
         child: images.length == 1
             ? SizedBox(child: buildImage(images.first))
             : SizedBox(
+                width: 150.0,
                 height: 150.0,
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
