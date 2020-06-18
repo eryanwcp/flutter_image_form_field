@@ -22,7 +22,8 @@ class ImageFieldController<T> extends ValueNotifier<List<T>> {
   /// The new image is inserted at the beginning of the list
   ///   because it is the most recent.
   add(T image) {
-    value.insert(0, image);
+//    value.insert(0, image);//插入首個
+    value.add(image);//后插入
     notifyListeners();
   }
 
