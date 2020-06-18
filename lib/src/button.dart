@@ -55,30 +55,6 @@ class ImageButton<I> extends StatelessWidget {
       }
       return;
     });
-
-//    showModalBottomSheet(
-//        context: ctx,
-//        builder: (BuildContext context) {
-//          return new Column(
-//            mainAxisSize: MainAxisSize.min,
-//            children: [
-//              new ListTile(
-//                  leading: new Icon(Icons.camera_alt),
-//                  title: new Text(this.takePhotoText ?? "相机"),
-//                  onTap: () {
-//                    getImage(ImageSource.camera);
-//                    Navigator.pop(context);
-//                  }),
-//              new ListTile(
-//                  leading: new Icon(Icons.photo_library),
-//                  title: new Text(this.cameraRollText ?? "相册"),
-//                  onTap: () {
-//                    getImage(ImageSource.gallery);
-//                    Navigator.pop(context);
-//                  }),
-//            ],
-//          );
-//        });
   }
 
   @override
