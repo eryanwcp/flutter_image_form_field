@@ -4,6 +4,7 @@ import 'package:flutter/material.dart'
     show showModalBottomSheet, Icons, ListTile;
 import 'package:image_picker/image_picker.dart';
 
+import 'bottom_sheet.dart';
 import 'controller.dart';
 import 'types.dart';
 
@@ -43,29 +44,41 @@ class ImageButton<I> extends StatelessWidget {
   }
 
   _handlePressed(BuildContext ctx) {
-    showModalBottomSheet(
-        context: ctx,
-        builder: (BuildContext context) {
-          return new Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              new ListTile(
-                  leading: new Icon(Icons.camera_alt),
-                  title: new Text(this.takePhotoText ?? "相机"),
-                  onTap: () {
-                    getImage(ImageSource.camera);
-                    Navigator.pop(context);
-                  }),
-              new ListTile(
-                  leading: new Icon(Icons.photo_library),
-                  title: new Text(this.cameraRollText ?? "相册"),
-                  onTap: () {
-                    getImage(ImageSource.gallery);
-                    Navigator.pop(context);
-                  }),
-            ],
-          );
-        });
+    BottomActionSheet.show(ctx, [
+      this.takePhotoText ?? '相机',
+      this.cameraRollText ?? "相册",
+    ], callBack: (i) {
+      if (i == 0) {
+        getImage(ImageSource.camera);
+      } else {
+        getImage(ImageSource.gallery);
+      }
+      return;
+    });
+
+//    showModalBottomSheet(
+//        context: ctx,
+//        builder: (BuildContext context) {
+//          return new Column(
+//            mainAxisSize: MainAxisSize.min,
+//            children: [
+//              new ListTile(
+//                  leading: new Icon(Icons.camera_alt),
+//                  title: new Text(this.takePhotoText ?? "相机"),
+//                  onTap: () {
+//                    getImage(ImageSource.camera);
+//                    Navigator.pop(context);
+//                  }),
+//              new ListTile(
+//                  leading: new Icon(Icons.photo_library),
+//                  title: new Text(this.cameraRollText ?? "相册"),
+//                  onTap: () {
+//                    getImage(ImageSource.gallery);
+//                    Navigator.pop(context);
+//                  }),
+//            ],
+//          );
+//        });
   }
 
   @override

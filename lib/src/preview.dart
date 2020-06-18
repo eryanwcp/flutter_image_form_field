@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Icons;
+import 'package:photo_view/photo_view.dart';
 
 import 'controller.dart';
 import 'types.dart';
@@ -97,5 +98,37 @@ class _ImagesPreviewState<T> extends State<ImagesPreview> {
   void dispose() {
     widget.controller.removeListener(_setImages);
     super.dispose();
+  }
+}
+class HeroPhotoViewWrapper extends StatelessWidget {
+  const HeroPhotoViewWrapper({
+    this.imageProvider,
+    this.loadingBuilder,
+    this.backgroundDecoration,
+    this.minScale,
+    this.maxScale,
+  });
+
+  final ImageProvider imageProvider;
+  final LoadingBuilder loadingBuilder;
+  final Decoration backgroundDecoration;
+  final dynamic minScale;
+  final dynamic maxScale;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height,
+      ),
+      child: PhotoView(
+        imageProvider: imageProvider,
+        loadingBuilder: loadingBuilder,
+        backgroundDecoration: backgroundDecoration,
+        minScale: minScale,
+        maxScale: maxScale,
+        heroAttributes: const PhotoViewHeroAttributes(tag: "someTag"),
+      ),
+    );
   }
 }
