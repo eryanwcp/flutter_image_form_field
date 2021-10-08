@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart' show Icons;
+import 'package:photo_view/photo_view.dart';
 
 import 'controller.dart';
 import 'types.dart';
@@ -67,17 +68,15 @@ class _ImagesPreviewState<T> extends State<ImagesPreview> {
 
     return Container(
         margin: const EdgeInsets.only(top: 10.0),
-        child: images.length == 1
-            ? SizedBox(child: buildImage(images.first))
-            : SizedBox(
-                height: 150.0,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 10.0, crossAxisCount: 1),
-                  itemCount: images.length,
-                  itemBuilder: (_, idx) => buildImage(images[idx]),
-                  scrollDirection: Axis.horizontal,
-                )));
+        child: Wrap(
+          alignment: WrapAlignment.start,
+          runSpacing: 10,
+          spacing: 10,
+          children: List.generate(images.length, (i) {
+            return buildImage(images[i]);
+          }),
+        )
+    );
   }
 
   void _setImages() {
@@ -97,5 +96,38 @@ class _ImagesPreviewState<T> extends State<ImagesPreview> {
   void dispose() {
     widget.controller.removeListener(_setImages);
     super.dispose();
+  }
+}
+
+class HeroPhotoViewWrapper extends StatelessWidget {
+  const HeroPhotoViewWrapper({
+    this.imageProvider,
+    this.loadingBuilder,
+    this.backgroundDecoration,
+    this.minScale,
+    this.maxScale,
+  });
+
+  final ImageProvider imageProvider;
+  final LoadingBuilder loadingBuilder;
+  final Decoration backgroundDecoration;
+  final dynamic minScale;
+  final dynamic maxScale;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height,
+      ),
+      child: PhotoView(
+        imageProvider: imageProvider,
+        loadingBuilder: loadingBuilder,
+        backgroundDecoration: backgroundDecoration,
+        minScale: minScale,
+        maxScale: maxScale,
+        heroAttributes: const PhotoViewHeroAttributes(tag: "someTag"),
+      ),
+    );
   }
 }
