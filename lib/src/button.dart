@@ -30,7 +30,7 @@ class ImageButton<I> extends StatelessWidget {
   final bool shouldAllowMultiple;
 
   Future getImage(ImageSource source) async {
-    final image = await ImagePicker().getImage(source: source);
+    final image = await ImagePicker().pickImage(source: source);
 
     if (image != null) {
       final newImage = initializeFileAsImage(File(image.path));
