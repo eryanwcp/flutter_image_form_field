@@ -13,4 +13,4 @@ dev_dependencies:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^0.6.7+4
+  image_picker: ^0.8.4+2
