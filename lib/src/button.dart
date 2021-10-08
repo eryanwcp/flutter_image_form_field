@@ -33,7 +33,7 @@ class ImageButton<I> extends StatelessWidget {
     final image = await ImagePicker().pickImage(source: source);
 
     if (image != null) {
-      final newImage = initializeFileAsImage(File(image.path));
+      final newImage = initializeFileAsImage(image);
 
       if (shouldAllowMultiple) {
         controller.add(newImage);
