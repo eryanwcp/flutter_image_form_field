@@ -20,7 +20,7 @@ class ImageButton<I> extends StatelessWidget {
     required this.buttonBuilder,
     this.takePhotoText,
     this.cameraRollText,
-    this.maxCount,
+    this.maxCount = 1,
     this.shouldAllowMultiple = false,
   }) : super(key: key);
 
