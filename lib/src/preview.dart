@@ -68,21 +68,15 @@ class _ImagesPreviewState<T> extends State<ImagesPreview> {
     if (images?.isEmpty ?? true) return Container();
 
     return Container(
-      margin: const EdgeInsets.only(top: 10.0),
-      child: images!.length == 1
-          ? SizedBox(child: buildImage(images!.first))
-          : SizedBox(
-              height: 150.0,
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 10.0,
-                  crossAxisCount: 1,
-                ),
-                itemCount: images!.length,
-                itemBuilder: (_, idx) => buildImage(images![idx]),
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
+        margin: const EdgeInsets.only(top: 10.0),
+        child: Wrap(
+          alignment: WrapAlignment.start,
+          runSpacing: 10,
+          spacing: 10,
+          children: List.generate(images!.length, (i) {
+            return buildImage(images![i]);
+          }),
+        )
     );
   }
 
