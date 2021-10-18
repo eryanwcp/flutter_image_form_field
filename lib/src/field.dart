@@ -44,6 +44,9 @@ class ImageFormField<T extends Object> extends FormField<List<T>> {
                 controller: state._effectiveController!,
                 buttonBuilder: buttonBuilder,
                 initializeFileAsImage: initializeFileAsImage,
+                takePhotoText: takePhotoText,
+                cameraRollText: cameraRollText,
+                maxCount: maxCount,
                 shouldAllowMultiple: shouldAllowMultiple,
               ),
               field.hasError
