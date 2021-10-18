@@ -21,7 +21,7 @@ class ImageButton<I> extends StatelessWidget {
     this.takePhotoText,
     this.cameraRollText,
     this.maxCount,
-    this.shouldAllowMultiple,
+    this.shouldAllowMultiple = false,
   }) : super(key: key);
 
   final ImageFieldController controller;
@@ -33,7 +33,7 @@ class ImageButton<I> extends StatelessWidget {
     final image = await ImagePicker().pickImage(source: source);
 
     if (image != null) {
-      final newImage = initializeFileAsImage(image);
+      final newImage = initializeFileAsImage(File(image.path));
 
       if (shouldAllowMultiple) {
         controller.add(newImage);
@@ -52,14 +52,14 @@ class ImageButton<I> extends StatelessWidget {
             children: [
               new ListTile(
                   leading: new Icon(Icons.camera_alt),
-                  title: new Text(this.takePhotoText ?? '相机'),
+                  title: new Text("Take a Picture"),
                   onTap: () {
                     getImage(ImageSource.camera);
                     Navigator.pop(context);
                   }),
               new ListTile(
                   leading: new Icon(Icons.photo_library),
-                  title: new Text(this.cameraRollText ?? "相册"),
+                  title: new Text("Camera Roll"),
                   onTap: () {
                     getImage(ImageSource.gallery);
                     Navigator.pop(context);
@@ -74,9 +74,7 @@ class ImageButton<I> extends StatelessWidget {
     final child = buttonBuilder(context, controller.value.length);
 
     return new GestureDetector(
-      onTap: () => controller.value.length < this.maxCount
-          ? _handlePressed(context)
-          : null,
+      onTap: () => _handlePressed(context),
       child: child,
     );
   }

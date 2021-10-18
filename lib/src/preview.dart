@@ -7,9 +7,9 @@ import 'types.dart';
 
 class _ImagePreview<T> extends StatelessWidget {
   const _ImagePreview({
-    Key key,
-    @required this.image,
-    @required this.previewImageBuilder,
+    Key? key,
+    required this.image,
+    required this.previewImageBuilder,
     this.onRemove,
   }) : super(key: key);
 
@@ -39,8 +39,8 @@ class _ImagePreview<T> extends StatelessWidget {
 
 class ImagesPreview<T> extends StatefulWidget {
   const ImagesPreview({
-    @required this.controller,
-    @required this.previewImageBuilder
+    required this.controller,
+    required this.previewImageBuilder
   });
 
   final ImageFieldController<T> controller;
@@ -51,7 +51,7 @@ class ImagesPreview<T> extends StatefulWidget {
 }
 
 class _ImagesPreviewState<T> extends State<ImagesPreview> {
-  List<T> images;
+  List<T>? images;
 
   Widget buildImage(T image) {
     if (image == null) return Container();
@@ -64,24 +64,26 @@ class _ImagesPreviewState<T> extends State<ImagesPreview> {
 
   @override
   Widget build(BuildContext context) {
-    if (images == null || images.isEmpty) return Container();
+    if (images?.isEmpty ?? true) return Container();
 
     return Container(
         margin: const EdgeInsets.only(top: 10.0),
-        child: Wrap(
-          alignment: WrapAlignment.start,
-          runSpacing: 10,
-          spacing: 10,
-          children: List.generate(images.length, (i) {
-            return buildImage(images[i]);
-          }),
-        )
-    );
+        child: images!.length == 1
+            ? SizedBox(child: buildImage(images!.first))
+            : SizedBox(
+                height: 150.0,
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 10.0, crossAxisCount: 1),
+                  itemCount: images!.length,
+                  itemBuilder: (_, idx) => buildImage(images![idx]),
+                  scrollDirection: Axis.horizontal,
+                )));
   }
 
   void _setImages() {
     setState(() {
-      images = widget.controller.value;
+      images = widget.controller.value as List<T>;
     });
   }
 
