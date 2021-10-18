@@ -9,15 +9,15 @@ import 'controller.dart';
 import 'types.dart';
 
 class ImageButton<I> extends StatelessWidget {
-  final String takePhotoText;
-  final String cameraRollText;
-  final int maxCount;
+  final String? takePhotoText;
+  final String? cameraRollText;
+  final int? maxCount;
 
   ImageButton({
-    Key key,
-    @required this.controller,
-    @required this.initializeFileAsImage,
-    @required this.buttonBuilder,
+    Key? key,
+    required this.controller,
+    required this.initializeFileAsImage,
+    required this.buttonBuilder,
     this.takePhotoText,
     this.cameraRollText,
     this.maxCount,
@@ -33,7 +33,7 @@ class ImageButton<I> extends StatelessWidget {
     final image = await ImagePicker().pickImage(source: source);
 
     if (image != null) {
-      final newImage = initializeFileAsImage(File(image.path));
+      final newImage = initializeFileAsImage(image);
 
       if (shouldAllowMultiple) {
         controller.add(newImage);

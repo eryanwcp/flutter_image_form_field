@@ -14,7 +14,7 @@ class _ImagePreview<T> extends StatelessWidget {
   }) : super(key: key);
 
   final T image;
-  final VoidCallback onRemove;
+  final VoidCallback? onRemove;
   final BuildImagePreviewCallback<T> previewImageBuilder;
 
   @override
@@ -110,9 +110,9 @@ class HeroPhotoViewWrapper extends StatelessWidget {
     this.maxScale,
   });
 
-  final ImageProvider imageProvider;
-  final LoadingBuilder loadingBuilder;
-  final Decoration backgroundDecoration;
+  final ImageProvider? imageProvider;
+  final LoadingBuilder? loadingBuilder;
+  final BoxDecoration? backgroundDecoration;
   final dynamic minScale;
   final dynamic maxScale;
 
